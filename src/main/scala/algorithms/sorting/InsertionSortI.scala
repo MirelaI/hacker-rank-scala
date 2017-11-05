@@ -26,7 +26,7 @@ import java.util.Scanner
   */
 object InsertionSortI {
 
-  // TODO: this is fugly .. improve it. 
+  // TODO: this is fugly .. improve it.
   def insertSort(n: Int, arr: List[Int]): List[List[Int]] = {
     val list = arr.take(n-1)
     val elem = arr.last
