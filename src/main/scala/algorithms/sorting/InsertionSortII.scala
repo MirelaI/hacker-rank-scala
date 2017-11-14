@@ -2,8 +2,6 @@ package algorithms.sorting
 
 import java.util.Scanner
 
-import scala.collection.mutable.ArrayBuffer
-
 /**
   * Created by mirela on 05/11/2017.
   */
@@ -21,10 +19,9 @@ object InsertionSortII {
     *      A[j+1] = value
     *  done
     */
-  def insertSort(n: Int, arr: Array[Int]): Array[Array[Int]] = {
-    var result = new ArrayBuffer[Array[Int]]
 
-    for ( i <- 0 until n ) {
+  def insertSort(n: Int, arr: Array[Int]): Array[Int] = {
+    for (i <- 0 until n) {
 
       val elem = arr(i)
 
@@ -36,11 +33,9 @@ object InsertionSortII {
       }
 
       arr(j+1) = elem
-      println(arr.mkString(" "))
-      result += arr
     }
-    
-    result.toArray
+
+    arr
   }
 
   def main(args: Array[String]) = {
@@ -48,9 +43,7 @@ object InsertionSortII {
     val n = sc.nextLine().toInt
     val unsortedList: Array[Int] = sc.nextLine().split(" ").map { _.toInt }
 
-    val sortedList = insertSort(n, unsortedList)
-
-    sortedList.foreach{ l: Array[Int] => println(l.mkString(" ")) }
+    val sortedArray = insertSort(n, unsortedList)
+    println(sortedArray.mkString(" "))
   }
-
 }
