@@ -10,9 +10,9 @@ object QuickSortPartition {
   def partition(lof: List[Int]): List[Int] = {
     val pivot: Int = lof(0)
 
-    var left: Seq[Int] = Seq()
-    var right: Seq[Int] = Seq()
-    var equal: Seq[Int] = Seq()
+    var left: List[Int] = List()
+    var right: List[Int] = List()
+    var equal: List[Int] = List()
 
     lof.foreach { elem: Int =>
       elem match {
@@ -20,11 +20,12 @@ object QuickSortPartition {
           left = left :+ e
         case e: Int if e > pivot =>
           right = right :+ e
-        case e: Int if e == pivot => equal = equal :+ e
+        case e: Int if e == pivot =>
+          equal = equal :+ e
       }
     }
 
-    left.toList ::: equal.toList ::: right.toList
+    left ::: equal ::: right
   }
 
   def main(args: Array[String]) = {
