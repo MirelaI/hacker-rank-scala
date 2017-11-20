@@ -18,9 +18,9 @@ class CountingSort {
       _.toInt
     }.toList
 
-    val countApparences: List[Int] = countSort(unsortedList)
+    val countOccurences: List[Int] = countSort(unsortedList)
 
-    println(countApparences.mkString(" "))
+    println(countOccurences.mkString(" "))
   }
 
 }
