@@ -20,7 +20,9 @@ object InsertionSortII {
     *  done
     */
 
-  def insertSort(n: Int, arr: Array[Int]): Array[Int] = {
+  def insertSort(n: Int, arr: Array[Int]): (Array[Int], Int) = {
+    var numberOfShifts = 0
+
     for (i <- 0 until n) {
 
       val elem = arr(i)
@@ -30,12 +32,13 @@ object InsertionSortII {
         arr(j+1) = arr(j)
 
         j -= 1
+        numberOfShifts += 1
       }
 
       arr(j+1) = elem
     }
 
-    arr
+    (arr, numberOfShifts)
   }
 
   def main(args: Array[String]) = {
@@ -43,7 +46,8 @@ object InsertionSortII {
     val n = sc.nextLine().toInt
     val unsortedList: Array[Int] = sc.nextLine().split(" ").map { _.toInt }
 
-    val sortedArray = insertSort(n, unsortedList)
+    val (sortedArray, numberOfShifts) = insertSort(n, unsortedList)
     println(sortedArray.mkString(" "))
+    println(numberOfShifts)
   }
 }
