@@ -8,7 +8,23 @@ import java.util.Scanner
 class CountingSort {
 
   def countSort(lof: List[Int]): List[Int] = {
-    (0 until 100).toList.map { elem => lof.count(elem == _) }
+    // Use in-memory caching caching here as is
+    // too expensive to call the count method
+    // each time.
+    var countCache: Map[Int, Int] = Map()
+
+    (0 until 100).toList.map { elem =>
+      val count = countCache.get(elem) match {
+        case Some(count) => count
+        case None =>
+          val newCount = lof.count(elem == _)
+          countCache += (elem -> newCount)
+          newCount
+      }
+      elem -> count
+    }.flatMap { result =>
+      List.fill(result._2)(result._1)
+    }
   }
 
   def main(args: Array[String]) = {
@@ -18,9 +34,8 @@ class CountingSort {
       _.toInt
     }.toList
 
-    val countOccurences: List[Int] = countSort(unsortedList)
+    val sortedList: List[Int] = countSort(unsortedList)
 
-    println(countOccurences.mkString(" "))
+    println(sortedList.mkString(" "))
   }
-
 }
