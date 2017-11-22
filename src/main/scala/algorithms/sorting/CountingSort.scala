@@ -5,7 +5,7 @@ import java.util.Scanner
 /**
   * Created by mirela on 20/11/2017.
   */
-class CountingSort {
+object CountingSort {
 
   def countSort(lof: List[Int]): List[Int] = {
     // Use in-memory caching caching here as is
