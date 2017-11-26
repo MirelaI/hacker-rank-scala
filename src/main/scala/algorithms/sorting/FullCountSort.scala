@@ -1,6 +1,5 @@
 package algorithms.sorting
 
-import scala.io
 import scala.collection.mutable.ListBuffer
 import scala.collection.mutable.Map
 import scala.io.StdIn
