@@ -1,7 +1,9 @@
 package algorithms.sorting
 
-import java.util.Scanner
+import scala.io
 import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.Map
+import scala.io.StdIn
 
 /**
   * Created by mirela on 22/11/2017.
@@ -20,37 +22,42 @@ import scala.collection.mutable.ListBuffer
   */
 object FullCountSort {
 
-  def fullCountSort(list: ListBuffer[List[String]], n: Int) = {
-    val zippedList: ListBuffer[(List[String], Int)] = list.zipWithIndex
+  def fullCountSort(list: ListBuffer[(Int,String)], n: Int ) = {
+    var mapValToCount: Map[Int, String] = Map.empty[Int, String]
 
-    (0 until n).toList.flatMap { elem =>
-      // Remove the elements after you filter them ...
-      val filteredList = zippedList.filter { listElems => listElems._1.head.toInt == elem }
+    list.zipWithIndex.foreach { case ((fakeIndex, value), index) =>
+      val stringToAdd: String = if (index < n/2) "-" else value
 
-      filteredList.foreach{ elem => zippedList -= elem }
-
-      filteredList.map { filList =>
-        filList._2 match {
-          case e if e < n/2 => "-"
-          case _ => filList._1.tail.head
-        }
+      val listOfValues: String = if (mapValToCount.isDefinedAt(fakeIndex)) {
+        val x: String = mapValToCount(fakeIndex)
+        x + " " + stringToAdd
+      } else {
+        stringToAdd
       }
+
+      mapValToCount += (fakeIndex -> listOfValues)
+    }
+
+    (0 until n).foreach { index: Int =>
+      mapValToCount.getOrElse(index, "")
     }
   }
 
   def main(args: Array[String]) = {
-    val sc = new Scanner(System.in)
-    val n = sc.nextLine().toInt
-    var listOfList: ListBuffer[List[String]] = ListBuffer()
+    val sc = StdIn
+    val n = sc.readLine().toInt
+    var listOfList: ListBuffer[(Int, String)] = ListBuffer()
 
-    while (sc.hasNextLine() && listOfList.size < n) {
-      val line = sc.nextLine().split(" ").toList
+    var line = ""
+    while ({line = StdIn.readLine(); !line.isEmpty}) {
+      val splitAsTuple = line.split(" ")
+      val asTuple: (Int, String) =(splitAsTuple(0).toInt, splitAsTuple(1))
 
-      listOfList += line
+      listOfList += asTuple
     }
 
-     val something = fullCountSort(listOfList, n)
+     val listOfString = fullCountSort(listOfList, n)
 
-     println(something.mkString(" "))
+     println(listOfList.mkString(" "))
   }
 }
