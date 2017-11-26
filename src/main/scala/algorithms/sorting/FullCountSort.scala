@@ -1,6 +1,7 @@
 package algorithms.sorting
 
 import java.util.Scanner
+import scala.collection.mutable.ListBuffer
 
 /**
   * Created by mirela on 22/11/2017.
@@ -19,12 +20,14 @@ import java.util.Scanner
   */
 object FullCountSort {
 
-  def fullCountSort(list: List[List[String]], n: Int) = {
-    val zippedList: List[(List[String], Int)] = list.zipWithIndex
+  def fullCountSort(list: ListBuffer[List[String]], n: Int) = {
+    val zippedList: ListBuffer[(List[String], Int)] = list.zipWithIndex
 
     (0 until n).toList.flatMap { elem =>
       // Remove the elements after you filter them ...
       val filteredList = zippedList.filter { listElems => listElems._1.head.toInt == elem }
+
+      filteredList.foreach{ elem => zippedList -= elem }
 
       filteredList.map { filList =>
         filList._2 match {
@@ -38,12 +41,12 @@ object FullCountSort {
   def main(args: Array[String]) = {
     val sc = new Scanner(System.in)
     val n = sc.nextLine().toInt
-    var listOfList: List[List[String]] = List()
+    var listOfList: ListBuffer[List[String]] = ListBuffer()
 
     while (sc.hasNextLine() && listOfList.size < n) {
       val line = sc.nextLine().split(" ").toList
 
-      listOfList = listOfList ::: line :: Nil
+      listOfList += line
     }
 
      val something = fullCountSort(listOfList, n)
