@@ -7,6 +7,11 @@ import java.util.Scanner
   */
 object Queens {
 
+  /**
+    * How can N queens be placed on an NxN chessboard so that no two of them
+    * attack each other?
+    */
+
   def queens(n: Int): List[List[(Int, Int)]] = {
     def placeQueens(k: Int): List[List[(Int, Int)]] = {
       if (k == 0) {
