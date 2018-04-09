@@ -1,3 +1,3 @@
 # hacker-rank-scala
 
-My scala approach of hacker rank challanges
+My scala approach of hacker rank challenges
